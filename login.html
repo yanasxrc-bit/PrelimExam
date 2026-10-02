@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f8e9e9">
+	<title>Welcome back | Petal</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #382d30;
+			--muted: #89777b;
+			--rose: #b75f70;
+			--rose-dark: #914453;
+			--rose-pale: #f8e9e9;
+			--line: #eadfe0;
+			--paper: #fffdfc;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			min-width: 320px;
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			padding: 28px;
+			color: var(--ink);
+			background-color: #f8e9e9;
+			background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.22) 0 1px, transparent 1px 12px);
+			font-family: "Aptos", "Segoe UI", sans-serif;
+		}
+
+		button, input { font: inherit; }
+
+		.login-shell {
+			width: min(100%, 1000px);
+			min-height: 610px;
+			display: grid;
+			grid-template-columns: .92fr 1.08fr;
+			overflow: hidden;
+			border: 1px solid rgba(255,255,255,.8);
+			border-radius: 8px;
+			background: var(--paper);
+			box-shadow: 0 24px 70px rgba(103, 58, 68, .12);
+			animation: arrive .55s ease-out both;
+		}
+
+		.welcome {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			overflow: hidden;
+			padding: 42px;
+			color: #fffaf9;
+			background: #b86d7a;
+		}
+
+		.welcome::before,
+		.welcome::after {
+			position: absolute;
+			content: "";
+			pointer-events: none;
+			border: 1px solid rgba(255, 244, 242, .28);
+			border-radius: 50%;
+		}
+
+		.welcome::before {
+			width: 370px;
+			height: 370px;
+			right: -150px;
+			bottom: 76px;
+			box-shadow: 0 0 0 24px rgba(255,244,242,.045), 0 0 0 48px rgba(255,244,242,.035), 0 0 0 72px rgba(255,244,242,.025);
+		}
+
+		.welcome::after {
+			width: 200px;
+			height: 200px;
+			left: -115px;
+			top: 180px;
+			box-shadow: 0 0 0 18px rgba(255,244,242,.05), 0 0 0 36px rgba(255,244,242,.04);
+		}
+
+		.brand, .welcome-copy, .welcome-foot { position: relative; z-index: 1; }
+
+		.brand {
+			display: inline-flex;
+			align-items: center;
+			gap: 11px;
+			width: fit-content;
+			color: inherit;
+			font-family: Georgia, "Times New Roman", serif;
+			font-size: 24px;
+			font-weight: 700;
+			letter-spacing: .2px;
+			text-decoration: none;
+		}
+
+		.brand-mark {
+			width: 31px;
+			height: 31px;
+			display: grid;
+			place-items: center;
+			border: 1px solid rgba(255,255,255,.68);
+			border-radius: 50%;
+			font-family: Georgia, serif;
+			font-size: 20px;
+			font-weight: 400;
+		}
+
+		.welcome-copy { max-width: 340px; margin: auto 0; padding: 65px 0; }
+
+		.eyebrow {
+			margin: 0 0 19px;
+			color: #f9dfe1;
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			margin: 0;
+			font-family: Georgia, "Times New Roman", serif;
+			font-size: clamp(40px, 4vw, 54px);
+			font-weight: 400;
+			line-height: 1.08;
+		}
+
+		.welcome-copy p:last-child {
+			max-width: 290px;
+			margin: 22px 0 0;
+			color: #f8e5e5;
+			font-size: 15px;
+			line-height: 1.7;
+		}
+
+		.welcome-foot { color: #f6dfe0; font-size: 12px; }
+
+		.form-panel {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 56px clamp(36px, 7vw, 82px);
+		}
+
+		.form-content { width: 100%; max-width: 360px; }
+
+		.form-content h2 {
+			margin: 0;
+			font-family: Georgia, "Times New Roman", serif;
+			font-size: 34px;
+			font-weight: 400;
+			letter-spacing: 0;
+		}
+
+		.intro { margin: 10px 0 32px; color: var(--muted); font-size: 14px; }
+
+		.field { margin-bottom: 19px; }
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			color: #524448;
+			font-size: 13px;
+			font-weight: 600;
+		}
+
+		input[type="email"], input[type="password"], input[type="text"] {
+			width: 100%;
+			height: 48px;
+			padding: 0 14px;
+			border: 1px solid var(--line);
+			border-radius: 4px;
+			outline: none;
+			color: var(--ink);
+			background: #fff;
+			font-size: 14px;
+			transition: border-color .18s, box-shadow .18s;
+		}
+
+		input::placeholder { color: #b3a5a8; }
+		input:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(183,95,112,.13); }
+
+		.password-wrap { position: relative; }
+		.password-wrap input { padding-right: 67px; }
+
+		.show-password {
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 48px;
+			padding: 0 12px;
+			border: 0;
+			color: var(--rose-dark);
+			background: transparent;
+			cursor: pointer;
+			font-size: 12px;
+			font-weight: 700;
+		}
+
+		.form-options {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			margin: 4px 0 23px;
+			font-size: 12px;
+		}
+
+		.remember { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); cursor: pointer; }
+		.remember input { width: 14px; height: 14px; margin: 0; accent-color: var(--rose); }
+		a { color: var(--rose-dark); text-decoration: none; }
+		a:hover { text-decoration: underline; }
+
+		.submit-button {
+			width: 100%;
+			height: 49px;
+			border: 0;
+			border-radius: 4px;
+			color: #fff;
+			background: var(--rose);
+			cursor: pointer;
+			font-size: 14px;
+			font-weight: 700;
+			transition: background-color .18s, transform .18s;
+		}
+
+		.submit-button:hover { background: var(--rose-dark); }
+		.submit-button:active { transform: translateY(1px); }
+
+		.divider { display: flex; align-items: center; gap: 13px; margin: 24px 0; color: #a29195; font-size: 11px; }
+		.divider::before, .divider::after { height: 1px; flex: 1; content: ""; background: var(--line); }
+
+		.google-button {
+			width: 100%;
+			height: 46px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			border: 1px solid var(--line);
+			border-radius: 4px;
+			color: #514448;
+			background: #fff;
+			cursor: pointer;
+			font-size: 13px;
+			font-weight: 600;
+			transition: background-color .18s, border-color .18s;
+		}
+
+		.google-button:hover { border-color: #d8c6c9; background: #fff9f8; }
+		.google-mark { color: #4285f4; font-size: 17px; font-weight: 700; }
+
+		.signup { margin: 26px 0 0; color: var(--muted); text-align: center; font-size: 13px; }
+		.signup a { margin-left: 4px; font-weight: 700; }
+
+		:focus-visible { outline: 3px solid rgba(145,68,83,.35); outline-offset: 2px; }
+
+		@keyframes arrive {
+			from { opacity: 0; transform: translateY(9px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		@media (max-width: 700px) {
+			body { padding: 16px; }
+			.login-shell { width: min(100%, 470px); min-height: 0; grid-template-columns: 1fr; }
+			.welcome { min-height: 205px; padding: 24px 28px; }
+			.brand { font-size: 21px; }
+			.welcome-copy { padding: 26px 0 10px; }
+			.welcome-copy .eyebrow { margin-bottom: 9px; }
+			.welcome-copy h1 { max-width: 330px; font-size: 35px; }
+			.welcome-copy p:last-child, .welcome-foot { display: none; }
+			.welcome::before { width: 240px; height: 240px; right: -100px; bottom: -130px; }
+			.welcome::after { top: auto; bottom: -130px; }
+			.form-panel { padding: 32px 28px 36px; }
+			.intro { margin-bottom: 25px; }
+		}
+
+		@media (max-width: 360px) {
+			body { padding: 10px; }
+			.welcome { padding: 20px; }
+			.form-panel { padding-right: 20px; padding-left: 20px; }
+			.form-content h2 { font-size: 30px; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<main class="login-shell">
+		<section class="welcome" aria-labelledby="welcome-title">
+			<a class="brand" href="#" aria-label="Petal home">
+				<span class="brand-mark" aria-hidden="true">p</span>
+				<span>petal</span>
+			</a>
+			<div class="welcome-copy">
+				<p class="eyebrow">A little space for you</p>
+				<h1 id="welcome-title">Make room for what matters.</h1>
+				<p>Good to have you back. Your calm corner is right where you left it.</p>
+			</div>
+			<div class="welcome-foot">A softer way to stay in sync.</div>
+		</section>
+
+		<section class="form-panel" aria-labelledby="login-title">
+			<div class="form-content">
+				<h2 id="login-title">Welcome back</h2>
+				<p class="intro">Sign in to pick up where you left off.</p>
+
+				<form action="#" method="get">
+					<div class="field">
+						<label for="email">Email address</label>
+						<input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+					</div>
+					<div class="field">
+						<label for="password">Password</label>
+						<div class="password-wrap">
+							<input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+							<button class="show-password" type="button" aria-controls="password" aria-pressed="false">Show</button>
+						</div>
+					</div>
+
+					<div class="form-options">
+						<label class="remember"><input type="checkbox" name="remember"> Remember me</label>
+						<a href="#forgot-password">Forgot password?</a>
+					</div>
+
+					<button class="submit-button" type="submit">Sign in</button>
+				</form>
+
+				<div class="divider" aria-hidden="true">OR CONTINUE WITH</div>
+				<button class="google-button" type="button"><span class="google-mark" aria-hidden="true">G</span> Continue with Google</button>
+				<p class="signup">New to Petal?<a href="#create-account">Create an account</a></p>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		const passwordInput = document.querySelector("#password");
+		const visibilityButton = document.querySelector(".show-password");
+
+		visibilityButton.addEventListener("click", () => {
+			const isVisible = passwordInput.type === "text";
+			passwordInput.type = isVisible ? "password" : "text";
+			visibilityButton.textContent = isVisible ? "Show" : "Hide";
+			visibilityButton.setAttribute("aria-pressed", String(!isVisible));
+		});
+	</script>
+</body>
+</html>
